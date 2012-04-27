@@ -1,0 +1,50 @@
+
+	<script type="text/javascript">
+	var public_session_user='<%=User.current%>';
+	</script>
+	<div class="column less-full fl">
+	  <div class="box">
+	    <h2 class="box-header"><%= "Chat" %></h2>
+	    <div class="box-content box-table chat-box clearfix">
+
+	      <section id="available_chats">
+	        <nav>
+			  <ul id="recent_chats">
+				
+			  </ul>
+	          <ul id="all_contacts">
+	          	<% User.all.each do |user| %>
+				<li class="<%=cycle('odd', 'even')%>">
+					<a href="javascript:adduser('<%=user.id%>');"><%= user.login%></a>
+				</li>
+				<%end%>
+	          </ul>
+	        </nav>
+	      </section>
+
+
+	      <section id="chat_content">
+	        <div id="chatting_with">
+	          Chatting with 
+	        </div>
+
+	        <div id="chat_messages">
+	        </div>
+	        <div id="chat_typer">
+	          <%= form_for Message.new, :remote => true do |f| %>
+	            <div class="form-element clearfix">
+	              <%= f.text_field :content, :style => "display: inline; width: 80%; margin-right: 10px;" %>
+	              <%= f.submit "Senden", :class => "button themed", :style => "display: inline;" %>
+	            </div>
+	          <% end %>
+	        </div>
+	      </section>
+
+	    </div>
+	  </div>
+
+	</div>
+
+
+
+	</div>

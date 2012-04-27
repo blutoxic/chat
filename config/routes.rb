@@ -1,3 +1,5 @@
-Chat::Engine.routes.draw do
-  root :to => "chats#index"
+Rails.application.routes.draw do
+  namespace :messenger do
+    resources :chats
+  end
 end
