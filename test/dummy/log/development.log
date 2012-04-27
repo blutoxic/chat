@@ -1,0 +1,77 @@
+  [1m[36m (0.1ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (1.9ms)[0m  CREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) 
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("schema_migrations")[0m
+  [1m[35m (1.6ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateMessengerOpenchats (20120427131630)
+  [1m[35m (0.6ms)[0m  CREATE TABLE "messenger_openchats" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "creator_id" integer, "chat_partner_id" integer, "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20120427131630')[0m
+Migrating to CreateMessages (20120427140250)
+  [1m[35m (0.5ms)[0m  CREATE TABLE "messages" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "content" text, "creator_id" integer, "receiver_id" integer, "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20120427140250')[0m
+  [1m[35m (0.3ms)[0m  select sqlite_version(*)
+  [1m[36m (0.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_list("messages")
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("messenger_openchats")[0m
+  [1m[36m (0.5ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.1ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+Migrating to CreateMessages (20120427140250)
+  [1m[36m (0.0ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (10.7ms)[0m  DROP TABLE "messages"
+  [1m[36m (0.5ms)[0m  [1mDELETE FROM "schema_migrations" WHERE "schema_migrations"."version" = '20120427140250'[0m
+  [1m[35m (0.4ms)[0m  select sqlite_version(*)
+  [1m[36m (0.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_list("messenger_openchats")
+  [1m[36m (0.5ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateMessengerOpenchats (20120427131630)
+Migrating to CreateChatmessages (20120427142319)
+  [1m[35m (0.0ms)[0m  select sqlite_version(*)
+  [1m[36m (1.0ms)[0m  [1mCREATE TABLE "chatmessages" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "content" text, "creator_id" integer, "receiver_id" integer, "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35m (0.5ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20120427142319')
+  [1m[36m (0.4ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("chatmessages")[0m
+  [1m[35m (0.1ms)[0m  PRAGMA index_list("messenger_openchats")
+  [1m[36m (0.5ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateChatmessages (20120427142319)
+Migrating to CreateOpenchats (20120427142752)
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (0.6ms)[0m  [1mCREATE TABLE "openchats" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "creator_id" integer, "chat_partner_id" integer, "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35m (1.0ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20120427142752')
+  [1m[36m (0.3ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (0.2ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("chatmessages")[0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_list("messenger_openchats")
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("openchats")[0m
+  [1m[36m (0.6ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.1ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+Migrating to CreateOpenchats (20120427142752)
+  [1m[36m (0.0ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (1.4ms)[0m  DROP TABLE "openchats"
+  [1m[36m (0.2ms)[0m  [1mDELETE FROM "schema_migrations" WHERE "schema_migrations"."version" = '20120427142752'[0m
+  [1m[35m (0.4ms)[0m  select sqlite_version(*)
+  [1m[36m (0.2ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_list("chatmessages")
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("messenger_openchats")[0m
+  [1m[36m (0.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.2ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+Migrating to CreateChatmessages (20120427142319)
+  [1m[36m (0.1ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (1.0ms)[0m  DROP TABLE "chatmessages"
+  [1m[36m (0.2ms)[0m  [1mDELETE FROM "schema_migrations" WHERE "schema_migrations"."version" = '20120427142319'[0m
+  [1m[35m (0.3ms)[0m  select sqlite_version(*)
+  [1m[36m (0.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_list("messenger_openchats")
+  [1m[36m (0.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateChatmessages (20120427142319)
+  [1m[35m (0.0ms)[0m  select sqlite_version(*)
+  [1m[36m (1.4ms)[0m  [1mCREATE TABLE "chatmessages" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "content" text, "creator_id" integer, "receiver_id" integer, "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35m (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20120427142319')
+Migrating to CreateOpenchats (20120427142752)
+  [1m[36m (0.6ms)[0m  [1mCREATE TABLE "openchats" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "creator_id" integer, "chat_partner_id" integer, "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35m (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20120427142752')
+  [1m[36m (0.4ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("chatmessages")[0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_list("messenger_openchats")
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("openchats")[0m

@@ -1,5 +1,5 @@
 module Messenger
   class Engine < Rails::Engine
-    # isolate_namespace Chat
+    # isolate_namespace Messenger
   end
 end

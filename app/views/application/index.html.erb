@@ -10,9 +10,15 @@
 	      <section id="available_chats">
 	        <nav>
 			  <ul id="recent_chats">
-				
+				<li class="header">
+					Kürzliche Chats
+				</li>
 			  </ul>
 	          <ul id="all_contacts">
+				<li class="header">
+					Alle Kontakte
+				
+				</li>
 	          	<% User.all.each do |user| %>
 				<li class="<%=cycle('odd', 'even')%>">
 					<a href="javascript:adduser('<%=user.id%>');"><%= user.login%></a>
@@ -30,6 +36,7 @@
 
 	        <div id="chat_messages">
 	        </div>
+					<%#= render :partial => "chats/chat_form", :locals=>{:channel_id=>chat_partner.id, :channel=>chat_partner.open_chat_user,:messages=>@message_data} %>
 	        <div id="chat_typer">
 	          <%= form_for Message.new, :remote => true do |f| %>
 	            <div class="form-element clearfix">

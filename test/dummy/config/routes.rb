@@ -1,4 +1,4 @@
 Rails.application.routes.draw do
 
-  mount Chat::Engine => "/chat"
+  mount Messenger::Engine => "/messenger"
 end
