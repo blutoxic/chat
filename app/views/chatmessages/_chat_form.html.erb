@@ -1,23 +1,28 @@
 <div class="chat_window" id="window_<%=channel_id%>">
+	
 	<div id="chatting_with">
-		<% chat_partner=User.find(channel_id).login%>
-		Chatting with <%=char_partner.capitalize%>
+		<% if channel_id==0 %>
+			<% chat_partner="public"%>
+		<% else %>
+			<% chat_partner=User.find(channel_id).login%>
+		<% end %>
+		Chatting with <%=chat_partner.capitalize%>
 	</div>
-	<div id="frame">
-		<div class="container" id="container_<%= channel_id %>">
-			<ul id="list">
-				<% if @chat_messages %>
-					<% @chat_messages.each do |chat_message|%>
-						<% if chat_message!=nil %>
-							<%= render :partial => "chatmessages/message", :locals=>{:username=>chat_partner,:message=>chat_message[chat_message][channel_id]} %>
-						<% end %>
+	
+	<div class="message_frame">
+		<div class="message_container" id="container_<%= channel_id %>">
+			<ul id="message_list">
+				<% if messages!=nil %>
+					<% messages.each do |message|%>
+							<%= render :partial => "chatmessages/message", :locals=>{:username=>chat_partner,:message=>message.content} %>
 					<% end %>
 				<% end %>
 			</ul>
 		</div>
+		
 	<%= form_for :create,:url => {:action => "create"}, :remote => true do |f| %>
-		<%= f.hidden_field  :receiver, :value=>channel %>
-  		<%= f.text_field :content, :id=>"input_"+channel, :class=>"chat_input" %>
+		<%= f.hidden_field  :receiver_id, :value=>channel_id%>
+  		<%= f.text_field :content, :id=>"input_#{channel_id}", :class=>"chat_input" %>
   		<%= f.submit "Send >" , :class => "send"%>
 	<% end %>
 	</div>

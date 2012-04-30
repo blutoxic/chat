@@ -1,0 +1,6 @@
+<% if channel_id!=0 %>
+	<div class="chat_tab" id="<%= channel_id %>"><%=User.find(channel_id).login.capitalize %>
+	<a href="javascript:destroy('<%=channel_id%>');">X</a></div>
+<%else%>
+	<div class="chat_tab" id="<%= channel_id %>">Public</div>
+<%end%>

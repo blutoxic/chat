@@ -1,10 +1,18 @@
 
 	<script type="text/javascript">
-	var user_id='<%=User.current.id%>';
+	var user_id=<%=User.current.id%>;
+	var latest_chat_partner=<%= @latest_chat_partner %>;
+	$(document).ready(function() {
+		$('#window_'+latest_chat_partner).toggle('slow');
+	});
 	</script>
 	<div class="column less-full fl">
 	  <div class="box">
-	    <h2 class="box-header"><%= "Chat" %></h2>
+	    <h2 class="box-header"><%= "Chat" %>
+		<% @chat_partners.each do |chat_partner| %>	
+			<a class="header_link" href="javascript:destroy('<%=chat_partner.chat_partner_id%>');">X</a>
+		<% end %>
+		</h2>
 	    <div class="box-content box-table chat-box clearfix">
 
 	      <section id="available_chats">
@@ -30,14 +38,28 @@
 
 
 	      <section id="chat_content">
-			<% @chat_partners.each do |chat_partner| %>				
-					<%= render :partial => "chatmessages/chat_form", :locals=>{:channel_id=>chat_partner.chat_partner_id, :messages=>@chat_messages} %>
+		<%#= debug @chat_partners%>
+			<% @chat_partners.each do |chat_partner| %>	
+			
+			
+				<% if chat_partner.chat_partner_id == 0 then%>
+					<% @chat_messages = Chatmessage.find(:all,:conditions => "receiver_id = 0") %>
+				<% else %>
+					<% 	@chat_messages=Chatmessage.find(:all,:conditions => "creator_id='#{chat_partner.chat_partner_id}' and receiver_id = '#{@current_chat_user.id}' or creator_id='#{@current_chat_user.id}' and receiver_id ='#{chat_partner.chat_partner_id}'") %>
+				<% end %>
+				
+				<% if chat_partner.chat_partner_id != @current_chat_user.id then %>
+						<%= render :partial => "chatmessages/chat_form", :locals=>{:channel_id=>chat_partner.chat_partner_id, :messages=>@chat_messages} %>
+				<% end %>
+				
+			
+			
 			<% end %>
 
 
 			
 				
-			</div>
+
 	        
 	      </section>
 
