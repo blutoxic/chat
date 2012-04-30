@@ -1,6 +1,6 @@
 
 	<script type="text/javascript">
-	var public_session_user='<%=User.current%>';
+	var user_id='<%=User.current.id%>';
 	</script>
 	<div class="column less-full fl">
 	  <div class="box">
@@ -30,21 +30,15 @@
 
 
 	      <section id="chat_content">
-	        <div id="chatting_with">
-	          Chatting with 
-	        </div>
+			<% @chat_partners.each do |chat_partner| %>				
+					<%= render :partial => "chatmessages/chat_form", :locals=>{:channel_id=>chat_partner.chat_partner_id, :messages=>@chat_messages} %>
+			<% end %>
 
-	        <div id="chat_messages">
-	        </div>
-					<%#= render :partial => "chats/chat_form", :locals=>{:channel_id=>chat_partner.id, :channel=>chat_partner.open_chat_user,:messages=>@message_data} %>
-	        <div id="chat_typer">
-	          <%= form_for Message.new, :remote => true do |f| %>
-	            <div class="form-element clearfix">
-	              <%= f.text_field :content, :style => "display: inline; width: 80%; margin-right: 10px;" %>
-	              <%= f.submit "Senden", :class => "button themed", :style => "display: inline;" %>
-	            </div>
-	          <% end %>
-	        </div>
+
+			
+				
+			</div>
+	        
 	      </section>
 
 	    </div>
