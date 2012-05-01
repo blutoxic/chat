@@ -1,27 +1,25 @@
 class Messenger::ChatmessagesController < ApplicationController
   def index
-      @current_chat_user=User.current
-
-      @chat_partners=Messenger::Openchat.find(:all,:conditions => "creator_id = '#{@current_chat_user.id}'")
-      @database_answer=Chatmessage.find(:last,:conditions => "creator_id='#{@current_chat_user.id}'")
-      if @database_answer!=nil
-      @latest_chat_partner=@database_answer.receiver_id
+    
+     
+     
+    	if params[:chat_partner_id]
+    	    @latest_chat_partner=User.find(params[:chat_partner_id]).id
+      	  Messenger::Openchat.find_or_create_by_chat_partner_id_and_creator_id(@latest_chat_partner,User.current.id)
+    	else
+        @latest_chat_partner=0
       end
       
-      public_entry=false
-    	@chat_partners.each do |chat_partner|
-    	  if chat_partner.chat_partner_id==0
-    	    public_entry=true
-    	    break
-    	  end
-    	end
-    	if public_entry==false
-    	  @open_chat=Messenger::Openchat.new
-        @open_chat.creator_id=@current_chat_user
-        @open_chat.chat_partner_id=0
-        @open_chat.save
-        @chat_partners.push(@open_chat)
-    	end  	
+      @current_chat_user=User.current
+      @chat_partners=Messenger::Openchat.find(:all,:conditions => "creator_id = '#{@current_chat_user.id}'")
+      @open_chat_public=Messenger::Openchat.find_or_create_by_chat_partner_id_and_creator_id(0,User.current.id)
+      
+      @database_answer=Messenger::Openchat.find(:last,:conditions => "creator_id='#{@current_chat_user.id}'")
+      if @chat_partners.last!=@database_answer
+        @chat_partners.push(@open_chat_public)
+      end
+    	
+
   end
   
   def create

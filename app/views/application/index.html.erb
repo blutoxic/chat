@@ -1,14 +1,13 @@
 
 	<script type="text/javascript">
-	var latest_chat_partner=<%= @latest_chat_partner %>+"";
-	if (latest_chat_partner==null) {
-		latest_chat_partner=0;
-	}
+	var latest_chat_partner=<%= @latest_chat_partner %>;
 	var last_toggle=latest_chat_partner;
+	var unread_messages=new Array();
+	
 	$(document).ready(function() {
 		$(".chat_window").css({
-			"height": $('#chat_content').height(),
-			"width": $('#chat_content').width()-$('#available_chats').width()-2
+			"height": $('#chat_content').height()-5,
+			"width": $('#chat_content').width()-$('#available_chats').width()-5
 		});
 		$('#chat_window_'+latest_chat_partner).toggle('slow', function() {
 			
@@ -19,38 +18,38 @@
 	<div class="column less-full fl">
 	  <div class="box">
 	    <h2 class="box-header"><%= "Chat" %>
-		<% @chat_partners.each do |chat_partner| %>	
-			
-		<% end %>
 		</h2>
 	    <div class="box-content box-table chat-box clearfix">
 
 	      <section id="available_chats">
 	        <nav>
-			  <ul id="recent_chats">
+			  <ul class="userlist" id="recent_chats">
 				<li class="header">
 					Kürzliche Chats
 				</li>
 				<% @chat_partners.each do |chat_partner| %>
+					
 					<% if chat_partner.chat_partner_id != @current_chat_user.id then %>
-						<li class="<%=cycle('odd', 'even')%>">
+						<li id="recent_link_<%=chat_partner.id%>" class="<%=cycle('odd', 'even')%>">
 						<% if chat_partner.chat_partner_id!=0 %>
-							<a href="javascript:toggleWindows(<%=chat_partner.chat_partner_id%>);"><%= User.find(chat_partner.chat_partner_id).login %></a>
+							<a  href="javascript:toggleWindows(<%=chat_partner.chat_partner_id%>);"><%= User.find(chat_partner.chat_partner_id).login %></a>
+								<div class="chat_remove_button"><a href="javascript:removeUser(<%=chat_partner.id%>,<%=chat_partner.chat_partner_id%>);">X</a></div>
 						<% else %>
 							<a href="javascript:toggleWindows(<%=chat_partner.chat_partner_id%>);">Public</a>
 						<% end %>
-						</li>
+					<label class="message_counter" id="message_counter_<%=chat_partner.chat_partner_id%>">0</label>
+						</li>	
 					<% end %>	
 				<% end %>
 			  </ul>
-	          <ul id="all_contacts">
+	          <ul class="userlist" id="all_contacts">
 				<li class="header">
 					Alle Kontakte
 				
 				</li>
 	          	<% User.all.each do |user| %>
 				<li class="<%=cycle('odd', 'even')%>">
-					<a href="javascript:adduser('<%=user.id%>');"><%= user.login%></a>
+					<a href="javascript:adduser('<%=user.id%>',true);"><%= user.login%></a>
 				</li>
 				<%end%>
 	          </ul>

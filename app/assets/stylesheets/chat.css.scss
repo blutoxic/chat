@@ -1,7 +1,8 @@
 div.chat_window {
 	display:none;
 	float:left;
-	border:1px solid #9ADB5C;
+	left:1px;
+	border:3px solid #bbb;
 	position:absolute;
 	width:79%;
 	height:430px;
@@ -9,31 +10,71 @@ div.chat_window {
 
 #available_chats {
 	overflow-y:scroll;
+	overflow-x:hidden;
 }
-
+#available_chats a:hover {
+	text-shadow:0px 0px 10px #aaa;
+}
+#available_chats {
+	position:relative;
+	box-shadow:inset 0px 0px 10px #000;
+}
+ul.userlist li {
+	-webkit-transition: all 0.7s ease-in-out; 
+	border:1px solid #999;
+	position:relative;
+	margin:10px;
+	
+}
+ul.userlist li.header {
+	border:1px solid #000;
+}
+ul.userlist li:hover {
+	box-shadow:inset 0px 0px 10px #000;
+	border:1px solid #000;
+}
+ul.userlist li.header:hover {
+	box-shadow:none;
+	border:1px solid #000;
+}
+div#chatting_with {
+	position:relative;
+	box-shadow:0px 0px 18px #000;
+	z-index:1;
+}
 div.message_container{
+	position:relative;
 	overflow-y:scroll;
-	max-height:350px;
+	min-height:370px;
+	max-height:370px;
+	border-bottom:3px solid #bbb;
+	z-index:0
 }
-
+label.message_counter {
+	position:relative;
+	top:-100%;
+	left:125px;
+	color:#fff;
+	font-size:16px;
+	text-shadow:0px 0px 4px #FF0000;
+	display:none;
+}
 div.message_frame form {
 	border:1px solid #999;
 }
 
 div.message_frame form input.chat_input {
-	width:90%;
+	width:88%;
 }
 
-div.chat_tab {
-	border:3px solid #999;
-	border-radius:3px;
-	width:50px;
-	position:fixed;
-	
+div.chat_remove_button {
+	float:right;
+	position:relative;
+	left:-20px;
+	text-align:center;
 }
-.chat {
-width:100px;
-}
+
+
 #chat_content {
 	position:relative;
 	left:20%;

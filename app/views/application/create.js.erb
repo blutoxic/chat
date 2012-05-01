@@ -1,4 +1,4 @@
-#chat_window<%  if params[:create][:content]!="" %>
+<%  if params[:create][:content]!="" %>
             <% current_chat_user=User.current.id %>
        //alert("receiver: <%=params[:create][:receiver_id]%>, creator:<%=params[:create][:creator_id]%>")
             //Creator:
@@ -17,8 +17,15 @@
                       $("#container_<%=current_chat_user%>").children('#message_list').append("<%= escape_javascript render :partial => 'chatmessages/message', 
                       :locals=>{:username=>User.current.login,:message=>params[:create][:content]} %>");
                   } else {
-                      addUser(<%=current_chat_user%>);
+                      addUser(<%=current_chat_user%>,false);
                   }
+                  if (last_toggle!=<%=current_chat_user%>) {
+                     if (unread_messages[<%=current_chat_user%>]==null) {
+                         unread_messages[<%=current_chat_user%>]=0
+                     }
+                     unread_messages[<%=current_chat_user%>]+=1;
+                    createNotification(<%=current_chat_user%>,unread_messages[<%=current_chat_user%>])
+                    }
               <% else %>
                   $("#container_0").children('#message_list').append("<%= escape_javascript render :partial => 'chatmessages/message', 
                   :locals=>{:username=>User.current.login,:message=>params[:create][:content]} %>");

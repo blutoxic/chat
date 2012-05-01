@@ -1,5 +1,7 @@
 <div class="chat_window" id="chat_window_<%=channel_id%>">
-	
+<script type="text/javascript">
+var latest_openchat=<%=Openchat.find(:last).id%>
+</script>
 	<div id="chatting_with">
 		<% if channel_id==0 %>
 			<% chat_partner="public"%>
@@ -23,7 +25,7 @@
 	<%= form_for :create,:url => {:action => "create"}, :remote => true do |f| %>
 		<%= f.hidden_field  :receiver_id, :value=>channel_id%>
   		<%= f.text_field :content, :id=>"input_#{channel_id}", :class=>"chat_input" %>
-  		<%= f.submit "Send >" , :class => "send"%>
+  		<%= f.submit "Send >" , :class => "button white"%>
 	<% end %>
 	</div>
 </div>

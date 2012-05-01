@@ -4,7 +4,6 @@ class Messenger::OpenchatsController < ApplicationController
   end
   
   def new
-    @r_old_channel = Messenger::Openchat.find(:last).id
     @message_data= Chatmessage.find(:all,:conditions => "creator_id='#{params[:chat_partner_id]}' and receiver_id = '#{User.current.id}' 
     or creator_id='#{User.current.id}' and receiver_id = '#{params[:chat_partner_id]}'")
     respond_to do |format|
@@ -14,6 +13,18 @@ class Messenger::OpenchatsController < ApplicationController
           render :partial => "chatmessages/chat_form", :locals=>{:channel_id=>params[:chat_partner_id], :messages=>@message_data}
         end
       } 
+    end
+  end
+  
+  
+  def destroy
+    @openchat=Messenger::Openchat.find(params[:id])
+    Messenger::Openchat.destroy(params[:id])
+    respond_to do |format|
+      format.html { redirect_to root_url }
+      format.json { 
+        head :ok
+      }
     end
   end
 end
