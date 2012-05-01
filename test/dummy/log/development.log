@@ -128,3 +128,15 @@ Migrating to CreateOpenchats (20120427142752)
   [1m[35m (0.0ms)[0m  PRAGMA index_list("chatmessages")
   [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("messenger_openchats")[0m
   [1m[35m (0.0ms)[0m  PRAGMA index_list("openchats")
+  [1m[36m (7.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateChatmessages (20120427142319)
+Migrating to CreateOpenchats (20120427142752)
+Migrating to AddUsernamesToMessages (20120501091204)
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (26.0ms)[0m  [1mALTER TABLE "chatmessages" ADD "username" text[0m
+  [1m[35m (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20120501091204')
+  [1m[36m (0.3ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("chatmessages")[0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_list("messenger_openchats")
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("openchats")[0m

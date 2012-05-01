@@ -1,16 +1,26 @@
 
 	<script type="text/javascript">
-	var user_id=<%=User.current.id%>;
-	var latest_chat_partner=<%= @latest_chat_partner %>;
+	var latest_chat_partner=<%= @latest_chat_partner %>+"";
+	if (latest_chat_partner==null) {
+		latest_chat_partner=0;
+	}
+	var last_toggle=latest_chat_partner;
 	$(document).ready(function() {
-		$('#window_'+latest_chat_partner).toggle('slow');
+		$(".chat_window").css({
+			"height": $('#chat_content').height(),
+			"width": $('#chat_content').width()-$('#available_chats').width()-2
+		});
+		$('#chat_window_'+latest_chat_partner).toggle('slow', function() {
+			
+			$('.message_container').scrollTo( '100%', 1500 );
+		});
 	});
 	</script>
 	<div class="column less-full fl">
 	  <div class="box">
 	    <h2 class="box-header"><%= "Chat" %>
 		<% @chat_partners.each do |chat_partner| %>	
-			<a class="header_link" href="javascript:destroy('<%=chat_partner.chat_partner_id%>');">X</a>
+			
 		<% end %>
 		</h2>
 	    <div class="box-content box-table chat-box clearfix">
@@ -21,6 +31,17 @@
 				<li class="header">
 					Kürzliche Chats
 				</li>
+				<% @chat_partners.each do |chat_partner| %>
+					<% if chat_partner.chat_partner_id != @current_chat_user.id then %>
+						<li class="<%=cycle('odd', 'even')%>">
+						<% if chat_partner.chat_partner_id!=0 %>
+							<a href="javascript:toggleWindows(<%=chat_partner.chat_partner_id%>);"><%= User.find(chat_partner.chat_partner_id).login %></a>
+						<% else %>
+							<a href="javascript:toggleWindows(<%=chat_partner.chat_partner_id%>);">Public</a>
+						<% end %>
+						</li>
+					<% end %>	
+				<% end %>
 			  </ul>
 	          <ul id="all_contacts">
 				<li class="header">

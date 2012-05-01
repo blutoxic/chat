@@ -1,33 +1,28 @@
-<%  if params[:create][:content]!="" %>
+#chat_window<%  if params[:create][:content]!="" %>
             <% current_chat_user=User.current.id %>
        //alert("receiver: <%=params[:create][:receiver_id]%>, creator:<%=params[:create][:creator_id]%>")
             //Creator:
             <% broadcast "/messages/#{params[:create][:creator_id]}" do %>
                 <% if params[:create][:receiver_id]!=0 %>
-                    $("#container_<%=params[:create][:receiver_id]%>").children('#list').append("<%= escape_javascript render :partial => 'chatmessages/message', 
+                    $("#container_<%=params[:create][:receiver_id]%>").children('#message_list').append("<%= escape_javascript render :partial => 'chatmessages/message', 
                     :locals=>{:username=>User.current.login,:message=>params[:create][:content]} %>"); 
                 <% end %>
-                  $("#container_<%=params[:create][:receiver_id]%>").scrollTo( '+=50px', 1500 ); 
+                  $("#container_<%=params[:create][:receiver_id]%>").scrollTo( '100%', 1500 ); 
                     $('#input_<%=params[:create][:receiver_id]%>').val('');
             <% end %>
             //Receiver:
             <% broadcast "/messages/#{params[:create][:receiver_id]}" do %>
-           
               <% if params[:create][:receiver_id]!=0 %>
-              
-              if ($("#container_<%=current_chat_user%>").exists()) {
-                  $("#container_<%=current_chat_user%>").children('#list').append("<%= escape_javascript render :partial => 'chatmessages/message', 
-                  :locals=>{:username=>User.current.login,:message=>params[:create][:content]} %>");
-              } else {
-                  //Ajax-Post!
-               }
-             
-              
-           
+                  if ($("#container_<%=current_chat_user%>").exists()) {
+                      $("#container_<%=current_chat_user%>").children('#message_list').append("<%= escape_javascript render :partial => 'chatmessages/message', 
+                      :locals=>{:username=>User.current.login,:message=>params[:create][:content]} %>");
+                  } else {
+                      addUser(<%=current_chat_user%>);
+                  }
               <% else %>
-              $("#container_0").children('#list').append("<%= escape_javascript render :partial => 'chatmessages/message', 
-              :locals=>{:username=>User.current.login,:message=>params[:create][:content]} %>");
-              $("#container_0").scrollTo( '+=50px', 1500 );
+                  $("#container_0").children('#message_list').append("<%= escape_javascript render :partial => 'chatmessages/message', 
+                  :locals=>{:username=>User.current.login,:message=>params[:create][:content]} %>");
+                  $("#container_0").scrollTo( '100%', 1500 );
               <% end %>
         <%end%>
     <%end%>

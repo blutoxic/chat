@@ -2,9 +2,13 @@ div.chat_window {
 	display:none;
 	float:left;
 	border:1px solid #9ADB5C;
-
+	position:absolute;
 	width:79%;
 	height:430px;
+}
+
+#available_chats {
+	overflow-y:scroll;
 }
 
 div.message_container{
@@ -26,4 +30,11 @@ div.chat_tab {
 	width:50px;
 	position:fixed;
 	
+}
+.chat {
+width:100px;
+}
+#chat_content {
+	position:relative;
+	left:20%;
 }

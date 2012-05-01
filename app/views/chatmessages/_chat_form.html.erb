@@ -1,4 +1,4 @@
-<div class="chat_window" id="window_<%=channel_id%>">
+<div class="chat_window" id="chat_window_<%=channel_id%>">
 	
 	<div id="chatting_with">
 		<% if channel_id==0 %>
@@ -14,7 +14,7 @@
 			<ul id="message_list">
 				<% if messages!=nil %>
 					<% messages.each do |message|%>
-							<%= render :partial => "chatmessages/message", :locals=>{:username=>chat_partner,:message=>message.content} %>
+							<%= render :partial => "chatmessages/message", :locals=>{:username=>message.username,:message=>message.content} %>
 					<% end %>
 				<% end %>
 			</ul>
