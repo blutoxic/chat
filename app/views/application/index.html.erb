@@ -30,15 +30,7 @@
 				<% @chat_partners.each do |chat_partner| %>
 					
 					<% if chat_partner.chat_partner_id != @current_chat_user.id then %>
-						<li id="recent_link_<%=chat_partner.id%>" class="<%=cycle('odd', 'even')%>">
-						<% if chat_partner.chat_partner_id!=0 %>
-							<a  href="javascript:toggleWindows(<%=chat_partner.chat_partner_id%>);"><%= User.find(chat_partner.chat_partner_id).login %></a>
-								<div class="chat_remove_button"><a href="javascript:removeUser(<%=chat_partner.id%>,<%=chat_partner.chat_partner_id%>);">X</a></div>
-						<% else %>
-							<a href="javascript:toggleWindows(<%=chat_partner.chat_partner_id%>);">Public</a>
-						<% end %>
-					<label class="message_counter" id="message_counter_<%=chat_partner.chat_partner_id%>">0</label>
-						</li>	
+						<%= render :partial => "chatmessages/recent_label", :locals=>{:chat_partner=>chat_partner} %>
 					<% end %>	
 				<% end %>
 			  </ul>
@@ -49,13 +41,13 @@
 				</li>
 	          	<% User.all.each do |user| %>
 				<li class="<%=cycle('odd', 'even')%>">
-					<a href="javascript:adduser('<%=user.id%>',true);"><%= user.login%></a>
+					<a href="javascript:addUser('<%=user.id%>',true);"><%= user.login%></a>
 				</li>
 				<%end%>
 	          </ul>
 	        </nav>
 	      </section>
-
+			
 
 	      <section id="chat_content">
 		<%#= debug @chat_partners%>

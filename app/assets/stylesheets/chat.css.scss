@@ -12,12 +12,21 @@ div.chat_window {
 	overflow-y:scroll;
 	overflow-x:hidden;
 }
+#available_chats div.chat_scroll {
+	overflow-y:scroll;
+	overflow-x:hidden;
+}
+#available_chats div.footer {
+	height:300px;
+	width:100%;
+}
 #available_chats a:hover {
 	text-shadow:0px 0px 10px #aaa;
 }
 #available_chats {
 	position:relative;
-	box-shadow:inset 0px 0px 10px #000;
+	box-shadow:inset 0px 0px 15px #88c41a;
+
 }
 ul.userlist li {
 	-webkit-transition: all 0.7s ease-in-out; 
@@ -28,6 +37,7 @@ ul.userlist li {
 }
 ul.userlist li.header {
 	border:1px solid #000;
+	background-color:#999;
 }
 ul.userlist li:hover {
 	box-shadow:inset 0px 0px 10px #000;
@@ -39,7 +49,7 @@ ul.userlist li.header:hover {
 }
 div#chatting_with {
 	position:relative;
-	box-shadow:0px 0px 18px #000;
+	box-shadow:0px 0px 20px #000;
 	z-index:1;
 }
 div.message_container{
@@ -48,15 +58,18 @@ div.message_container{
 	min-height:370px;
 	max-height:370px;
 	border-bottom:3px solid #bbb;
-	z-index:0
+	z-index:0;
+}
+div.chat_window {
+
 }
 label.message_counter {
 	position:relative;
 	top:-100%;
-	left:125px;
+	left:100px;
 	color:#fff;
 	font-size:16px;
-	text-shadow:0px 0px 4px #FF0000;
+	text-shadow:0px 0px 3px #000;
 	display:none;
 }
 div.message_frame form {
@@ -72,6 +85,9 @@ div.chat_remove_button {
 	position:relative;
 	left:-20px;
 	text-align:center;
+}
+label.current_user {
+	color:#4d7d18;
 }
 
 

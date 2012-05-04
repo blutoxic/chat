@@ -1,8 +1,8 @@
 <li class="<%=cycle('odd', 'even')%>">
-<% if username==User.current %>
-	<label class="current-user">
+<% if username==User.current.login %>
+	<label class="current_user">
 <% else %>
-	<label class="pre-content">
+	<label class="pre_content">
 <% end %>	
 <%= username %> says:</label><%= message %>
 </li>

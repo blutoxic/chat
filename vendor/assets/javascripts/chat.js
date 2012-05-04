@@ -11,17 +11,46 @@ $(document).ready(function() {
    subscriptions.push(faye.subscribe('/messages/0', function (data) {eval(data); }));
 });
 
+function addUser(chat_partner_id,toggle) {
+$.ajaxSettings.accepts.html = $.ajaxSettings.accepts.script;
+                //Get window
+               $.get(  
+                        "/messenger/openchats/new",  
+                        {chat_partner_id: chat_partner_id},  
+                        function(responseText){
+                            $("#chat_content").append(responseText)
+                            if(toggle==true) {
+                                toggleWindows(chat_partner_id);
+                            }
+                            return true;
+                        },  
+                        "html"  
+                    );
+                 //Get li
+                $.get(  
+                        "/messenger/openchats/index",  
+                         {chat_partner_id: chat_partner_id},  
+                         function(responseText){
+                             alert(responseText); 
+                             $("#recent_chats").append(responseText);                           
+                            },  
+                         "html"  
+                 );
+}
+
 function toggleWindows(window_id) {
     if (last_toggle!=window_id) {
     	$('#chat_window_'+last_toggle).toggle('fast', function() { 
     	    	$('#chat_window_'+window_id).toggle('fast', function () {
-    	    	    $('#chat_window_'+window_id).scrollTo('100%',50);
+    	    	   
+    	    	    $('#container_'+window_id).scrollTo('100%',0);
     	    	    if($('#message_counter_'+window_id).is(':visible') ) {
     	    	        $('#message_counter_'+window_id).toggle('fast');
 	    	        }
+	    	        
         			last_toggle=window_id;
         			if(last_toggle!=0) {
-        			    window.history.pushState(new Object(), "Titel", "?chat_partner_id="+last_toggle);
+        			    window.history.pushState(new Object(), "?chat_partner_id="+last_toggle);
     			    }
         			});
     		});
@@ -56,20 +85,3 @@ function createNotification(channel_id,number) {
 }
 
 
-function adduser(chat_partner_id,toggle) {
-$.ajaxSettings.accepts.html = $.ajaxSettings.accepts.script;
-
-               $.get(  
-                        "/messenger/openchats/new",  
-                        {chat_partner_id: chat_partner_id},  
-                        function(responseText){
-                            $("#chat_content").append(responseText);
-                            
-                            if(toggle==true) {
-                                toggleWindows(chat_partner_id);
-                            }
-                            return true;
-                        },  
-                        "html"  
-                    );
-}
