@@ -1,7 +1,7 @@
 
 	<script type="text/javascript">
-	var latest_chat_partner=<%= @latest_chat_partner %>;
-	var last_toggle=latest_chat_partner;
+	var chat_partner=<%= @chat_partner %>;
+	var last_toggle=chat_partner;
 	var unread_messages=new Array();
 	
 	$(document).ready(function() {
@@ -9,7 +9,7 @@
 			"height": $('#chat_content').height()-5,
 			"width": $('#chat_content').width()-$('#available_chats').width()-5
 		});
-		$('#chat_window_'+latest_chat_partner).toggle('slow', function() {
+		$('#chat_window_'+chat_partner).toggle('slow', function() {
 			
 			$('.message_container').scrollTo( '100%', 1500 );
 		});
@@ -27,7 +27,7 @@
 				<li class="header">
 					Kürzliche Chats
 				</li>
-				<% @chat_partners.each do |chat_partner| %>
+				<% @recent_chats.each do |chat_partner| %>
 					
 					<% if chat_partner.chat_partner_id != @current_chat_user.id then %>
 						<%= render :partial => "chatmessages/recent_label", :locals=>{:chat_partner=>chat_partner} %>
@@ -51,7 +51,7 @@
 
 	      <section id="chat_content">
 		<%#= debug @chat_partners%>
-			<% @chat_partners.each do |chat_partner| %>	
+			<% @recent_chats.each do |chat_partner| %>	
 			
 			
 				<% if chat_partner.chat_partner_id == 0 then%>

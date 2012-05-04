@@ -50,7 +50,7 @@ function toggleWindows(window_id) {
 	    	        
         			last_toggle=window_id;
         			if(last_toggle!=0) {
-        			    window.history.pushState(new Object(), "?chat_partner_id="+last_toggle);
+        			    window.history.pushState(new Object(),window_id, "?chat_partner_id="+last_toggle);
     			    }
         			});
     		});

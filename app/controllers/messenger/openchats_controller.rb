@@ -22,8 +22,6 @@ class Messenger::OpenchatsController < ApplicationController
     end
   end
   
-  
-  
   def destroy
     @openchat=Messenger::Openchat.find(params[:id])
     Messenger::Openchat.destroy(params[:id])
