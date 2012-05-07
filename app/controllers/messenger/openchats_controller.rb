@@ -1,9 +1,10 @@
 class Messenger::OpenchatsController < ApplicationController
   def show
-      @chat_partner=Openchat.find(:first,:conditions=> "creator_id='#{User.current.id}' and chat_partner_id='#{params[:chat_partner_id]}'")
+      @chat_partner=Messenger::Openchat.find_or_create_by_chat_partner_id_and_creator_id(params[:chat_partner_id],User.current.id)
       respond_to do |format|
         format.js { 
-           render :partial => "chatmessages/recent_label", :locals=>{:chat_partner=>@chat_partner}
+           @notification=true
+           render :partial => "chatmessages/recent_label", :locals=>{:chat_partner=>@chat_partner,:notification=>@notification}
         } 
       end
   end
@@ -21,8 +22,6 @@ class Messenger::OpenchatsController < ApplicationController
       } 
     end
   end
-  
-  
   
   def destroy
     @openchat=Messenger::Openchat.find(params[:id])

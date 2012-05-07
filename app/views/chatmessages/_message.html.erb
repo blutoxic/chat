@@ -1,8 +1,12 @@
+<script type="text/javascript">
+$('.usermessage').autolink();
+</script>
 <li class="<%=cycle('odd', 'even')%>">
-<% if username==User.current.login %>
-	<label class="current_user">
-<% else %>
+
 	<label class="pre_content">
-<% end %>	
-<%= username %> says:</label><%= message %>
+		<%= username %> says:
+	</label>
+	<div class="usermessage">
+		<%=message%>
+	</div>
 </li>

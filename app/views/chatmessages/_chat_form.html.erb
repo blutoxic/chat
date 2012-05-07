@@ -16,7 +16,7 @@ var latest_openchat=<%=Openchat.find(:last).id%>
 			<ul id="message_list">
 				<% if messages!=nil %>
 					<% messages.each do |message|%>
-							<%= render :partial => "chatmessages/message", :locals=>{:username=>message.username,:message=>message.content} %>
+							<%= render :partial => "chatmessages/message", :locals=>{:username=>message.username,:message=>message.content,} %>
 					<% end %>
 				<% end %>
 			</ul>

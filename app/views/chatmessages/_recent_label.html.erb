@@ -1,6 +1,10 @@
- <li id="recent_link_<%=chat_partner.id%>" class="<%=cycle('odd', 'even')%>">
+<% if @notification==true %>
+	<li id="recent_link_<%=chat_partner.id%>" class="<%=cycle('odd', 'even')%> red">
+<% else %>
+	<li id="recent_link_<%=chat_partner.id%>" class="<%=cycle('odd', 'even')%>">
+<% end %>
 	<% if chat_partner.chat_partner_id!=0 %>
-		<a  href="javascript:toggleWindows(<%=chat_partner.chat_partner_id%>);"><%= User.find(chat_partner.chat_partner_id).login %></a>
+		<a  href="javascript:toggleWindows(<%=chat_partner.chat_partner_id%>,<%=chat_partner.id%>);"><%= User.find(chat_partner.chat_partner_id).login %></a>
 		<div class="chat_remove_button">
 			<a href="javascript:removeUser(<%=chat_partner.id%>,<%=chat_partner.chat_partner_id%>);">X</a>
 		</div>

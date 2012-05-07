@@ -2,7 +2,7 @@ jQuery.fn.exists = function(){return this.length>0;}
 
 
 $(document).ready(function() {
-  var faye = new Faye.Client('http://localhost:9292/faye');
+  var faye = new Faye.Client('http://demo.i-v-o.ch:9292/faye');
   
   var subscriptions = [faye.subscribe('/messages/'+user_id, function(data) {
         eval(data);
@@ -18,6 +18,7 @@ $.ajaxSettings.accepts.html = $.ajaxSettings.accepts.script;
                         "/messenger/openchats/new",  
                         {chat_partner_id: chat_partner_id},  
                         function(responseText){
+                            
                             $("#chat_content").append(responseText)
                             if(toggle==true) {
                                 toggleWindows(chat_partner_id);
@@ -28,17 +29,19 @@ $.ajaxSettings.accepts.html = $.ajaxSettings.accepts.script;
                     );
                  //Get li
                 $.get(  
-                        "/messenger/openchats/index",  
+                        "/messenger/openchats/show",  
                          {chat_partner_id: chat_partner_id},  
                          function(responseText){
-                             alert(responseText); 
-                             $("#recent_chats").append(responseText);                           
+                             
+                             $("#recent_chats").append(responseText, function(){
+                                 createNotification(chat_partner_id,unread_messages[chat_partner_id]+1)
+                             });                           
                             },  
                          "html"  
                  );
 }
 
-function toggleWindows(window_id) {
+function toggleWindows(window_id,recent_id) {
     if (last_toggle!=window_id) {
     	$('#chat_window_'+last_toggle).toggle('fast', function() { 
     	    	$('#chat_window_'+window_id).toggle('fast', function () {
@@ -46,11 +49,15 @@ function toggleWindows(window_id) {
     	    	    $('#container_'+window_id).scrollTo('100%',0);
     	    	    if($('#message_counter_'+window_id).is(':visible') ) {
     	    	        $('#message_counter_'+window_id).toggle('fast');
+    	    	        if (recent_id) {
+    	    	            $('#recent_link_'+recent_id).removeClass('red');
+    	    	            alert(recent_id);
+	    	            }
 	    	        }
 	    	        
         			last_toggle=window_id;
         			if(last_toggle!=0) {
-        			    window.history.pushState(new Object(), "?chat_partner_id="+last_toggle);
+        			    window.history.pushState(new Object(),window_id, "?chat_partner_id="+last_toggle);
     			    }
         			});
     		});
@@ -66,7 +73,10 @@ function removeUser(openchat_id,toggle_id) {
                         type: 'DELETE',
                         success: function() {
                             
-                             $("#recent_link_"+openchat_id).toggle('fast');
+                             $("#recent_link_"+openchat_id).toggle('fast', function(){
+                                 $("#recent_link_"+openchat_id).remove();
+                                  window.history.pushState(new Object(),openchat_id, "?chat_partner_id=0");
+                             });
                             
                                    toggleWindows(0);
                                    
@@ -83,5 +93,4 @@ function createNotification(channel_id,number) {
         }
     }
 }
-
 
